@@ -1,7 +1,7 @@
 services:
   gateway:
     build: ../gateway
-    stop_grace_period: 5s
+    stop_grace_period: 1s
     volumes:
       - ../gateway/squid.conf:/etc/squid/squid.conf:ro
     networks:
