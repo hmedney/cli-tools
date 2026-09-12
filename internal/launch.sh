@@ -103,12 +103,18 @@ if [ -f "${HOME}/.gitconfig" ]; then
   GIT_MOUNT=(--volume "${HOME}/.gitconfig:/etc/gitconfig:ro")
 fi
 
+ENV_FILE=()
+if [ -f "${HOST_TOOL_HOME}/.env" ]; then
+  ENV_FILE=(--env-from-file "${HOST_TOOL_HOME}/.env")
+fi
+
 with_env docker compose --file "${COMPOSE_FILE}" run --rm -it \
   --service-ports \
   --user "${CURRENT_UID}:${CURRENT_GID}" \
   --volume "${PWD}:${PWD}" \
   --volume "${HOST_TOOL_HOME}:${CONTAINER_TOOL_HOME}" \
   --env HOME="${CONTAINER_TOOL_HOME}" \
+  "${ENV_FILE[@]}" \
   "${GIT_MOUNT[@]}" \
   "${COMPOSE_SERVICE}" \
   "$@"
