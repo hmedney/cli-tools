@@ -70,6 +70,10 @@ ENV PATH=$HOME/.nvm/current/bin:$HOME/bin:$PATH
 RUN curl -fsSL https://get.pnpm.io/install.sh | sh
 ENV PATH=$HOME/.local/share/pnpm/bin:$PATH
 
+# install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH=$HOME/.cargo/bin:$PATH
+
 # default editor
 ENV EDITOR=micro
 
