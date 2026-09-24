@@ -11,30 +11,30 @@ ARG CURRENT_GID
 
 # Create matching host system user
 RUN groupadd --gid $CURRENT_GID $CURRENT_USERNAME \
-    && useradd --uid $CURRENT_UID --gid $CURRENT_GID -m -s /bin/bash $CURRENT_USERNAME
+  && useradd --uid $CURRENT_UID --gid $CURRENT_GID -m -s /bin/bash $CURRENT_USERNAME
 
 # Install packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash \
-    openssh-server \
-    ca-certificates \
-    libatomic1 \
-    curl \
-    file \
-    micro \
-    git \
-    jq \
-    less \
-    bzip2 \
-    procps \
-    fd-find \
-    ripgrep \
-    socat \
-    libgomp1 \
-    locales \
-    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-    && locale-gen \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+  bash \
+  openssh-server \
+  ca-certificates \
+  libatomic1 \
+  curl \
+  file \
+  micro \
+  git \
+  jq \
+  less \
+  bzip2 \
+  procps \
+  fd-find \
+  ripgrep \
+  socat \
+  libgomp1 \
+  locales \
+  && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+  && locale-gen \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 5. Shift context completely to the mirrored user
 USER $CURRENT_USERNAME
@@ -46,7 +46,7 @@ ENV PYTHON_VENV=$HOME/venv
 RUN python3 -m venv $PYTHON_VENV
 ENV PATH=$PYTHON_VENV/bin:$PATH
 RUN $PYTHON_VENV/bin/pip install --no-cache-dir --upgrade pip && \
-    $PYTHON_VENV/bin/pip install --no-cache-dir ipykernel jupyter_client
+  $PYTHON_VENV/bin/pip install --no-cache-dir ipykernel jupyter_client
 ENV SHELL=bash
 
 # install uv
@@ -73,6 +73,7 @@ ENV PATH=$HOME/.local/share/pnpm/bin:$PATH
 # install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH=$HOME/.cargo/bin:$PATH
+RUN rustup toolchain install stable
 
 # default editor
 ENV EDITOR=micro
