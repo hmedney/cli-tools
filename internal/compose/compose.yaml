@@ -67,7 +67,7 @@ services:
       <<: *build
       args:
         <<: *build_args
-        INSTALL_COMMAND: curl -fsSL https://opencode.ai/install | bash
+        INSTALL_COMMAND: curl -fsSL https://opencode.ai/v2/install | bash
     environment:
       <<: *environment
       OPENCODE_OFFLINE: "1"
